@@ -1,0 +1,10 @@
+[Unit]
+Description=run getallaurpackages renew all 15min
+
+[Timer]
+OnUnitActiveSec=15min
+OnBootSec=10min
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

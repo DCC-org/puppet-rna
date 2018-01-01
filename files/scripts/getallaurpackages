@@ -1,0 +1,26 @@
+#!/usr/bin/ruby
+
+##
+# created by Tim Meusel
+# 2017-04-26
+# collect all packages from the aur repo
+# throw them into a yaml file
+##
+
+require 'yaml'
+
+# get all packages from the aur repo
+pacman_output = `pacman -S --list aur`
+# convert multiline string to an array
+ary = pacman_output.split(/\n+/)
+# delete all entries that don't include 'installed'
+ary.delete_if{|line| !line.include? 'installed'}
+# drop useless version information to only get package names
+packages = ary.map{|line| line.split(' ')[1]}
+# convert to hash, then to yaml, then write to file
+
+# https://ruby-doc.org/core-2.4.0/IO.html#method-c-new
+File.open('/etc/facter/facts.d/aurpackages.yaml', 'w+') do |f|
+  yaml = {'aurpackages' => packages}.to_yaml
+  f.write yaml
+end

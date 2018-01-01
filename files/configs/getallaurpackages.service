@@ -1,0 +1,6 @@
+[Unit]
+Description=Run getallaurpackages to report installed packages from the aur repository
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/getallaurpackages
