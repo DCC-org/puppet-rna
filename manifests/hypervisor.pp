@@ -23,7 +23,7 @@ class rna::hypervisor {
   -> file{'/srv/tftp/boot.ipxe.cfg':
     source => "puppet:///modules/${module_name}/configs/boot.ipxe.cfg"
   }
-  file{'/usr/local/bin':
+  file{'/usr/local/bin/syncrepo':
     source => "puppet:///modules/${module_name}/scripts/syncrepo",
     owner  => 'root',
     group  => 'root',
