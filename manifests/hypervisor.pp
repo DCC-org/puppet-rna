@@ -29,7 +29,7 @@ class rna::hypervisor {
     group  => 'root',
   }
   ['ipxe.efi', 'ipxe.lkrn', 'ipxe.pxe'].each |String $filename| {
-    file{"/srv/tftp/${filname}":
+    file{"/srv/tftp/${filename}":
       ensure => 'file',
     }
   }
