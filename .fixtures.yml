@@ -1,0 +1,13 @@
+fixtures:
+  repositories:
+    'stdlib': 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
+    'systemd': 'https://github.com/camptocamp/puppet-systemd.git'
+    'inifile': 'https://github.com/puppetlabs/puppetlabs-inifile.git'
+    'lldpd': 'https://github.com/voxpupuli/puppet-lldpd.git'
+    'archive': 'https://github.com/voxpupuli/puppet-archive.git'
+    'tftp': 'https://github.com/theforeman/puppet-tftp.git'
+    'vcsrepo': 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git'
+    'nginx': 'https://github.com/voxpupuli/puppet-nginx.git'
+    'megaraid': 'https://github.com/m4ce/puppet-megaraid.git'
+    'disk_facter': 'https://github.com/CygnusNetworks/cygnus-puppet-disk-facter.git'
+    'concat': 'https://github.com/puppetlabs/puppetlabs-concat.git'

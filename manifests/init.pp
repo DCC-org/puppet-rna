@@ -1,10 +1,10 @@
 class rna (
- Boolean $manage_root_dir,
- Array $packages,
- Boolean $manage_resolved,
- Boolean $manage_networkd,
- Boolean $manage_timesyncd,
- Stdlib::Absolutepath $www_root,
+  Boolean $manage_root_dir,
+  Array $packages,
+  Boolean $manage_resolved,
+  Boolean $manage_networkd,
+  Boolean $manage_timesyncd,
+  Stdlib::Absolutepath $www_root,
 ){
 
   include rna::network
@@ -19,7 +19,7 @@ class rna (
   package{$packages:
     ensure => 'present',
   }
-   service{'haveged':
+  service{'haveged':
     ensure  => 'running',
     enable  => true,
     require => Package['haveged'],
@@ -69,7 +69,7 @@ class rna (
     value   => '/etc/pacman.d/mirrorlist',
     require => File['archlinux-mirror'],
   }
-   service{'vnstat':
+  service{'vnstat':
     ensure  => running,
     enable  => true,
     require => Package['vnstat'],
@@ -102,6 +102,7 @@ class rna (
   include megaraid
 
   # do a pluginsync in agentless setup
+  # lint:ignore:puppet_url_without_modules
   file { $::settings::libdir:
     ensure  => directory,
     source  => 'puppet:///plugins',
@@ -110,6 +111,7 @@ class rna (
     backup  => false,
     noop    => false,
   }
+  # lint:endignore
   vcsrepo{'/root/.vim/bundle/Vundle.vim':
     ensure   => 'present',
     source   => 'https://github.com/gmarik/Vundle.vim.git',
