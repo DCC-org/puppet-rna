@@ -17,14 +17,7 @@ class rna::hypervisor {
   -> file{'/srv/http/pxe/menu.ipxe':
     source => "puppet:///modules/${module_name}/configs/menu.ipxe",
   }
-  -> file{'/srv/tftp/boot.ipxe':
-    source => "puppet:///modules/${module_name}/configs/boot.ipxe",
-  }
-  -> file{'/srv/tftp/boot.ipxe.cfg':
-    source => "puppet:///modules/${module_name}/configs/boot.ipxe.cfg",
-  }
-
-  ['ipxe.efi', 'ipxe.lkrn', 'ipxe.pxe'].each |String $filename| {
+  ['boot.ipxe', 'boot.ipxe.cfg', 'ipxe.efi', 'ipxe.lkrn', 'ipxe.pxe'].each |String $filename| {
     file{"/srv/tftp/${filename}":
       ensure => 'file',
     }
@@ -60,32 +53,20 @@ class rna::hypervisor {
     ensure => 'absent',
     force  => true,
   }
+  file{'/srv/archiso/arch':
+    ensure  => 'directory',
+    recurse => true,
+    mode    => '0755',
+  }
 
   class{'tftp':
     manage_root_dir => $rna::manage_root_dir,
   }
-
 
   file{'/srv/tftp/':
     recurse => true,
     source  => '/usr/lib/syslinux/bios/',
     purge   => false,
   }
-  file{'/srv/tftp/pxelinux.cfg':
-    ensure  => 'directory',
-    #owner   => 'marmoset',
-    #group   => 'marmoset',
-    #require => User['marmoset'],
-  }
-  #file{'/srv/tftp/pxelinux.cfg/default':
-    #ensure => file,
-    #owner  => 'root',
-    #group  => 'root',
-    #mode   => '0644',
-    # source => 'puppet:///modules/profiles/configs/pxelinux_default',
-    #  }
-
     # libvirt foo. qemu.conf edited
-
-    # add archive resource for downloading undionly
 }

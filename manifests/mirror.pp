@@ -20,4 +20,10 @@ class rna::mirror {
     www_root    => $rna::www_root,
     server_name => [$facts['fqdn'], '192.168.123.1'],
   }
+  nginx::resource::location{$facts['fqdn']:
+    server      => $facts['fqdn'],
+    location    => '/archiso',
+    www_root    => '/srv',
+    index_files => [],
+  }
 }
