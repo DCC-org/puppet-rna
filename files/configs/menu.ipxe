@@ -114,7 +114,7 @@ set base-url archlinux
 kernel images/${base-url}/arch/boot/x86_64/vmlinuz
 initrd images/${base-url}/arch/boot/intel_ucode.img
 initrd images/${base-url}/arch/boot/x86_64/archiso.img
-imgargs vmlinuz archiso_http_srv=https://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text console=tty0 console=ttyS0,115200n8
+imgargs vmlinuz archiso_http_srv=https://192.168.123.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text console=tty0 console=ttyS0,115200n8
 boot || goto failed
 goto ${mainmenu}
 
@@ -126,7 +126,7 @@ set base-url archlinux
 kernel images/${base-url}/arch/boot/x86_64/vmlinuz
 initrd images/${base-url}/arch/boot/intel_ucode.img
 initrd images/${base-url}/arch/boot/x86_64/archiso.img
-imgargs vmlinuz archiso_http_srv=https://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
+imgargs vmlinuz archiso_http_srv=https://192.168.123.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
 boot || goto failed
 goto ${mainmenu}
 
@@ -137,7 +137,7 @@ set base-url archlinux
 kernel images/${base-url}/arch/boot/x86_64/vmlinuz
 initrd images/${base-url}/arch/boot/intel_ucode.img
 initrd images/${base-url}/arch/boot/x86_64/archiso.img
-imgargs vmlinuz archiso_http_srv=http://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text console=tty0 console=ttyS0,115200n8
+imgargs vmlinuz archiso_http_srv=http://192.168.123.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text console=tty0 console=ttyS0,115200n8
 boot || goto failed
 goto ${mainmenu}
 
@@ -149,7 +149,7 @@ goto ${mainmenu}
 #kernel images/${base-url}/arch/boot/x86_64/vmlinuz
 #initrd images/${base-url}/arch/boot/intel_ucode.img
 #initrd images/${base-url}/arch/boot/x86_64/archiso.img
-#imgargs vmlinuz archiso_http_srv=http://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
+#imgargs vmlinuz archiso_http_srv=http://192.168.123.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
 #boot || goto failed
 #goto ${mainmenu}
 :archlinux
@@ -158,7 +158,7 @@ set base-url archlinux
 kernel images/${base-url}/arch/boot/x86_64/vmlinuz
 initrd images/${base-url}/arch/boot/intel_ucode.img
 initrd images/${base-url}/arch/boot/x86_64/archiso.img
-imgargs vmlinuz archiso_http_srv=http://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
+imgargs vmlinuz archiso_http_srv=http://192.168.123.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
 boot || goto failed
 goto ${mainmenu}
 
@@ -269,7 +269,7 @@ echo Booting SystemRescueCD ${sysrcd-version} x86 ${greeter}
 #   cd -
 # PXELinux options, see http://syslinux.zytor.com/wiki/index.php/PXELINUX for details
 #set 210:string ${boot-url}sysrcd-${sysrcd-version}-x86/isolinux/
-set 210:string tftp://192.168.15.1
+set 210:string tftp://192.168.123.1
 set 209:string isolinux.cfg
 #set filename ${210:string}lpxelinux.0
 set filename syslinux.efi
