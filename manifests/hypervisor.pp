@@ -18,10 +18,10 @@ class rna::hypervisor {
     source => "puppet:///modules/${module_name}/configs/menu.ipxe",
   }
   -> file{'/srv/tftp/boot.ipxe':
-    source => "puppet:///modules/${module_name}/configs/boot.ipxe"
+    source => "puppet:///modules/${module_name}/configs/boot.ipxe",
   }
   -> file{'/srv/tftp/boot.ipxe.cfg':
-    source => "puppet:///modules/${module_name}/configs/boot.ipxe.cfg"
+    source => "puppet:///modules/${module_name}/configs/boot.ipxe.cfg",
   }
 
   ['ipxe.efi', 'ipxe.lkrn', 'ipxe.pxe'].each |String $filename| {

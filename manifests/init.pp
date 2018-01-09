@@ -51,7 +51,7 @@ class rna (
     content => "KEYMAP=de-latin1-nodeadkeys\n",
   }
   file{'archlinux-mirror':
-    path  => '/etc/pacman.d/mirrorlist',
+    path    => '/etc/pacman.d/mirrorlist',
     content => "Server = http://mirror.virtapi.org/archlinux/\$repo/os/\$arch/\n",
   }
   # define our AUR repo
@@ -108,7 +108,7 @@ class rna (
     recurse => true,
     purge   => true,
     backup  => false,
-    noop    => false
+    noop    => false,
   }
   vcsrepo{'/root/.vim/bundle/Vundle.vim':
     ensure   => 'present',
