@@ -1,0 +1,361 @@
+#!ipxe
+
+# Variables are specified in boot.ipxe.cfg
+
+# Some menu defaults
+set menu-timeout 5000
+set submenu-timeout ${menu-timeout}
+isset ${menu-default} || set menu-default exit
+
+# Figure out if client is 64-bit capable
+cpuid --ext 29 && set arch x64 || set arch x86
+cpuid --ext 29 && set archl amd64 || set archl i386
+cpuid --ext 29 && set archwin amd64 || set archwin x86
+
+isset ${hostname} && set greeter for ${hostname} || set greeter  
+
+# detect whether client is using (U)EFI or legacy pcbios
+iseq ${platform} efi && set mainmenu start_efi || set mainmenu start_pcbios
+goto ${mainmenu}
+
+###################### MAIN MENU ####################################
+
+:start_efi
+menu iPXE EFI boot menu ${greeter}
+item --gap --             ------------------------- Live environments ------------------------------
+# item --key a archlinuxs     Boot Archlinux x64 from HTTPS
+# item archlinuxscom          Boot Archlinux x64 from HTTPS with Serial Console
+item --key a archlinux      Boot Archlinux x64 from HTTP
+item archlinuxcom           Boot Archlinux x64 from HTTP with Serial Console
+item --key b mfsbsd11       Boot mfsBSD 11.0-p2
+item --gap --             ------------------------- Installer --------------------------------------
+item --key w winpe          Boot Windows PE
+item win10en64en            Boot Windows 10 EDU N 64-Bit Installer (EN)
+item win7p64sp1de           Boot Windows 7 Pro 64-Bit SP1 Installer (DE)
+# item win7hp64sp1de          Boot Windows 7 Home Premium 64-Bit SP1 Installer (DE)
+item win7pn64sp1en          Boot Windows 7 Pro N 64-Bit SP1 Installer (EN)
+item --gap --             ------------------------- Tools and utilities ----------------------------
+# item --key m memtest86      Boot memtest86 7.1 (free version does not support pxe boot, site edition is needed for that)
+# item sysrcd                 Boot SystemRescueCD ${sysrcd-version}
+item --gap --             ------------------------- Advanced options -------------------------------
+item --key c config         Configure settings
+item --key s shell          Drop to iPXE shell
+item --key r reboot         Reboot computer
+item
+item --key x exit         Exit iPXE and continue EFI boot
+choose --timeout ${menu-timeout} --default ${menu-default} selected || goto cancel
+set menu-timeout 0
+goto ${selected}
+
+:start_pcbios
+menu iPXE BIOS boot menu ${greeter}
+item --gap --             ------------------------- Live environments ------------------------------
+# item --key a archlinuxs     Boot Archlinux x64 from HTTPS
+# item archlinuxscom          Boot Archlinux x64 from HTTPS with Serial Console
+item --key a archlinux      Boot Archlinux x64 from HTTP
+item archlinuxcom           Boot Archlinux x64 from HTTP with Serial Console
+item openbsd                Boot OpenBSD 6.0
+item --key b mfsbsd11       Boot mfsBSD 11.0-p2
+item --gap --             ------------------------- Installer --------------------------------------
+# item --key d deb8nb64       Boot Debian 8 x64 Netboot Installer
+item --key w winpe          Boot Windows PE
+item win7p64sp1de           Boot Windows 7 Pro 64-Bit SP1 Installer (DE)
+# item win7hp64sp1de          Boot Windows 7 Home Premium 64-Bit SP1 Installer (DE)
+item win7pn64sp1en          Boot Windows 7 Pro N 64-Bit SP1 Installer (EN)
+item --gap --             ------------------------- Tools and utilities ----------------------------
+item --key m memtest86p     Boot memtest86+ 5.01
+item --key h hdt            Boot HardwareDetectionTool HDT ${hdt-version}
+# item sysrcd                 Boot SystemRescueCD ${sysrcd-version}
+item --gap --             ------------------------- Advanced options -------------------------------
+item --key c config         Configure settings
+item --key s shell          Drop to iPXE shell
+item --key r reboot         Reboot computer
+item
+item --key x exit         Exit iPXE and continue BIOS boot
+choose --timeout ${menu-timeout} --default ${menu-default} selected || goto cancel
+set menu-timeout 0
+goto ${selected}
+
+:cancel
+echo You cancelled the menu, dropping you to a shell
+
+:shell
+echo Type 'exit' to get the back to the menu
+shell
+set menu-timeout 0
+set submenu-timeout 0
+goto ${mainmenu}
+
+:failed
+echo Booting failed, dropping to shell
+goto shell
+
+:reboot
+reboot
+
+:exit
+exit
+
+:config
+config
+goto ${mainmenu}
+
+:back
+set submenu-timeout 0
+clear submenu-default
+goto ${mainmenu}
+
+############ MAIN MENU ITEMS ############
+
+#-- archlinux HTTPS wih serial console --#
+:archlinuxscom
+echo Booting Archlinux ${greeter}
+set base-url archlinux
+kernel images/${base-url}/arch/boot/x86_64/vmlinuz
+initrd images/${base-url}/arch/boot/intel_ucode.img
+initrd images/${base-url}/arch/boot/x86_64/archiso.img
+imgargs vmlinuz archiso_http_srv=https://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text console=tty0 console=ttyS0,115200n8
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- archlinux HTTPS --#
+:archlinuxs
+echo Booting Archlinux ${greeter}
+set base-url archlinux
+kernel images/${base-url}/arch/boot/x86_64/vmlinuz
+initrd images/${base-url}/arch/boot/intel_ucode.img
+initrd images/${base-url}/arch/boot/x86_64/archiso.img
+imgargs vmlinuz archiso_http_srv=https://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
+boot || goto failed
+goto ${mainmenu}
+
+#-- archlinux HTTP with serial console --#
+:archlinuxcom
+echo Booting Archlinux ${greeter}
+set base-url archlinux
+kernel images/${base-url}/arch/boot/x86_64/vmlinuz
+initrd images/${base-url}/arch/boot/intel_ucode.img
+initrd images/${base-url}/arch/boot/x86_64/archiso.img
+imgargs vmlinuz archiso_http_srv=http://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text console=tty0 console=ttyS0,115200n8
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- archlinux HTTP --#
+#:archlinux
+#echo Booting Archlinux ${greeter}
+#set base-url archlinux
+#kernel images/${base-url}/arch/boot/x86_64/vmlinuz
+#initrd images/${base-url}/arch/boot/intel_ucode.img
+#initrd images/${base-url}/arch/boot/x86_64/archiso.img
+#imgargs vmlinuz archiso_http_srv=http://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
+#boot || goto failed
+#goto ${mainmenu}
+:archlinux
+echo Booting Archlinux ${greeter}
+set base-url archlinux
+kernel images/${base-url}/arch/boot/x86_64/vmlinuz
+initrd images/${base-url}/arch/boot/intel_ucode.img
+initrd images/${base-url}/arch/boot/x86_64/archiso.img
+imgargs vmlinuz archiso_http_srv=http://192.168.15.1/pxe/archlinux archisobasedir=/arch/ nomodeset checksum=y ip=::: BOOTIF=${netX/mac} systemd.mask=systemd-machine-id-commit systemd.mask=systemd-tmpfiles-setup systemd.mask=ldconfig systemd.mask=man-db.timer copy_resolvconf=n initrd=archiso.img edd=off nomodeset text
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- OpenBSD --#
+:openbsd
+echo Booting OpenBSD ${greeter}
+set base-url openbsd
+# initrd ${boot-url}images/${base-url}/openbsd.iso
+chain ${boot-url}images/${base-url}/pxeboot
+# chain memdisk iso raw
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- mfsBSD 11.0-p2 --#
+:mfsbsd11
+echo Booting mfsBSD11 ${greeter}
+set base-url mfsbsd
+set src ${boot-url}images/${base-url}/mfsbsd11.iso
+imgfree
+initrd ${src}
+chain memdisk iso
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- debian8 x64 netboot --#
+:deb8nb64
+echo Booting Debian 8 x64 Netboot Installer ${greeter}
+set base-url debian8x64
+kernel images/${base-url}/linux
+initrd images/${base-url}/initrd.gz
+imgargs linux nomodeset
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- Windows PE --#
+:winpe
+echo Booting Windows PE ${greeter}
+set base-url winpe
+kernel wimboot
+initrd images/${base-url}/${archwin}/media/Boot/BCD         BCD
+initrd images/${base-url}/${archwin}/media/Boot/boot.sdi    boot.sdi
+initrd images/${base-url}/${archwin}/media/sources/boot.wim boot.wim
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- Windows 10 EDU N x64 EN --#
+:win10en64en
+echo Booting Windows 10 EDU N 64-Bit Installer (EN) ${greeter}
+set base-url win10en64en
+kernel wimboot
+initrd images/${base-url}/${archwin}/media/Boot/BCD         BCD
+initrd images/${base-url}/${archwin}/media/Boot/boot.sdi    boot.sdi
+initrd images/${base-url}/${archwin}/media/sources/boot.wim boot.wim
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- Windows 7 Pro x64 SP1 DE --#
+:win7p64sp1de
+echo Booting Windows 7 Pro 64-Bit SP1 Installer (DE) ${greeter}
+set base-url win7p64sp1de
+kernel wimboot
+initrd images/${base-url}/${archwin}/media/Boot/BCD         BCD
+initrd images/${base-url}/${archwin}/media/Boot/boot.sdi    boot.sdi
+initrd images/${base-url}/${archwin}/media/sources/boot.wim boot.wim
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- Windows 7 Home Premium x64 SP1 DE --#
+:win7hp64sp1de
+echo Booting Windows 7 Home Premium 64-Bit SP1 Installer (DE) ${greeter}
+set base-url win7hp64sp1de
+kernel wimboot
+initrd images/${base-url}/${archwin}/media/Boot/BCD         BCD
+initrd images/${base-url}/${archwin}/media/Boot/boot.sdi    boot.sdi
+initrd images/${base-url}/${archwin}/media/sources/boot.wim boot.wim
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- Windows 7 Pro N x64 SP1 EN --#
+:win7pn64sp1en
+echo Booting Windows 7 Pro N 64-Bit SP1 Installer (EN) ${greeter}
+set base-url win7pn64sp1en
+kernel wimboot
+initrd images/${base-url}/${archwin}/media/Boot/BCD         BCD
+initrd images/${base-url}/${archwin}/media/Boot/boot.sdi    boot.sdi
+initrd images/${base-url}/${archwin}/media/sources/boot.wim boot.wim
+boot || goto failed
+goto ${mainmenu}
+
+
+#-- SystemRescueCD --#
+:sysrcd
+echo Booting SystemRescueCD ${sysrcd-version} x86 ${greeter}
+# Fixup needed after copying files from downloaded ISO to directory:
+#  cd path/to/sysrcd-iso-unpacked-files/isolinux && \
+#   perl -p -i -e 's{/bootdisk}{../bootdisk}' isolinux.cfg && \
+#   perl -p -i -e 's{scandelay=1}{scandelay=1 dodhcp netboot=nfs://nas.smidsrod.lan:/raid/boot/sysrcd-3.8.0-x86}g' isolinux.cfg && \
+#   perl -p -i -e 's{setkmap=us}{setkmap=us dodhcp netboot=nfs://nas.smidsrod.lan:/raid/boot/sysrcd-3.8.0-x86}g' isolinux.cfg && \
+#   perl -p -i -e 's{rescuecd_us}{rescuecd_no}; s{US}{NO}; s{setkmap=us}{setkmap=no}g; s{american}{norwegian};' isolinux.cfg && \
+#   cd -
+# PXELinux options, see http://syslinux.zytor.com/wiki/index.php/PXELINUX for details
+#set 210:string ${boot-url}sysrcd-${sysrcd-version}-x86/isolinux/
+set 210:string tftp://192.168.15.1
+set 209:string isolinux.cfg
+#set filename ${210:string}lpxelinux.0
+set filename syslinux.efi
+chain ${filename} || goto failed
+goto ${mainmenu}
+
+
+#-- HDT --#
+:hdt
+set base-url hdt
+initrd ${boot-url}images/${base-url}/hdt.iso
+chain memdisk iso raw
+boot || goto failed
+goto ${mainmenu}
+
+#-- memtest86 --#
+:memtest86
+set base-url memtest
+set filename ${boot-url}images/${base-url}/memtest86_x64.efi
+chain ${filename} || goto failed
+goto ${mainmenu}
+
+#-- memtest86p --#
+:memtest86p
+set base-url memtest
+initrd ${boot-url}images/${base-url}/memtest86p.iso
+chain memdisk iso raw
+boot || goto failed
+goto ${mainmenu}
+
+############################ INSTALLER MENU #########################
+
+:menu-install
+menu Installers ${greeter}
+item windows7-install     Install Windows 7 to iSCSI
+item winpe                Hook Windows 7 iSCSI and boot WinPE
+item
+item --key 0x08 back      Back to top menu...
+iseq ${menu-default} menu-install && isset ${submenu-default} && goto menu-install-timed ||
+choose selected && goto ${selected} || goto ${mainmenu}
+:menu-install-timed
+choose --timeout ${submenu-timeout} --default ${submenu-default} selected && goto ${selected} || goto ${mainmenu}
+
+:windows7-install
+echo Starting Windows 7 ${arch} installer ${greeter}
+# Force gateway to be the iSCSI target server (kludge for stupid window behavior)
+set netX/gateway ${iscsi-server}
+# Hook iSCSI drive
+set root-path ${base-iscsi}:${hostname}.boot.windows7
+sanhook ${root-path} || goto failed
+# Start Windows 7 installer DVD
+#sanboot --no-describe --drive 0x81 ${sanboot-url}windows-7/ultimate-${arch}-en.iso || goto failed
+# Better solution, according to Oliver Rath on the mailing-list
+# Requires massive amounts of RAM, though
+#initrd windows-7/ultimate-${arch}-en.iso
+#chain memdisk iso raw || goto failed
+# This method uses wimboot
+set base-url windows-7/ultimate-${arch}-en
+kernel wimboot
+initrd ${base-url}/bootmgr                     bootmgr
+initrd ${base-url}/boot/bcd                    BCD
+initrd ${base-url}/boot/fonts/wgl4_boot.ttf    wgl4_boot.ttf
+initrd ${base-url}/boot/boot.sdi               boot.sdi
+initrd ${base-url}/sources/boot.wim            boot.wim
+boot || goto failed
+goto ${mainmenu}
+
+:winpe
+echo Booting Windows PE ${arch} installer ${greeter}
+echo (for installing Windows 7)
+# Force gateway to be the iSCSI target server (kludge for stupid window behavior)
+set netX/gateway ${iscsi-server}
+
+set root-path ${base-iscsi}:${hostname}.boot.windows7
+sanhook ${root-path} || goto failed
+
+# Remember to map the install volume with the following command:
+# net use y: \\nas\wds /user:NAS\robin
+# Use Y:\Operating Systems\Windows 7 x64\setup.exe to install
+
+# Boots WinPE via native MS TFTP support
+#chain tftp://${next-server}/%5CBoot%5CPXE%5Cpxeboot.n12
+# Better solution, according to Oliver Rath on the mailing-list
+# Requires decent amounts of RAM, though
+# Details on how to generate winpe-x64.iso from you Windows 7 install DVD
+# can be found here: http://technet.microsoft.com/en-us/library/cc722358%28v=ws.10%29.aspx
+initrd windows-7/winpe-${arch}.iso
+chain memdisk iso raw || goto failed
+goto ${mainmenu}

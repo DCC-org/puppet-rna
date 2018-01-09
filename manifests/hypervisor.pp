@@ -8,6 +8,31 @@ class rna::hypervisor {
     restart_service => true,
   }
 
+  file{'/srv/http':
+    ensure => 'directory',
+  }
+  -> file{'/srv/http/pxe':
+    ensure => 'directory',
+  }
+  -> file{'/srv/http/pxe/menu.ipxe':
+    source => "puppet:///modules/${module_name}/configs/menu.ipxe",
+  }
+  -> file{'/srv/tftp/boot.ipxe':
+    source => "puppet:///modules/${module_name}/configs/boot.ipxe"
+  }
+  -> file{'/srv/tftp/boot.ipxe.cfg':
+    source => "puppet:///modules/${module_name}/configs/boot.ipxe.cfg"
+  }
+  file{'/usr/local/bin':
+    source => "puppet:///modules/${module_name}/scripts/syncrepo",
+    owner  => 'root',
+    group  => 'root',
+  }
+  ['ipxe.efi', 'ipxe.lkrn', 'ipxe.pxe'].each |String $filename| {
+    file{"/srv/tftp/${filname}":
+      ensure => 'file',
+    }
+  }
   # download arch iso
   file{'/srv/archiso':
     ensure => 'directory',
