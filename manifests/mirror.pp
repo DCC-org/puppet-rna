@@ -17,6 +17,7 @@ class rna::mirror {
 
   include nginx
   nginx::resource::server{$facts['fqdn']:
-    www_root => $rna::www_root,
+    www_root    => $rna::www_root,
+    server_name => [$facts['fqdn'], '192.168.123.1'],
   }
 }
