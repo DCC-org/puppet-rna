@@ -4,10 +4,12 @@ class rna (
  Boolean $manage_resolved,
  Boolean $manage_networkd,
  Boolean $manage_timesyncd,
+ Stdlib::Absolutepath $www_root,
 ){
 
   include rna::network
   include rna::hypervisor
+  include rna::mirror
 
   class{'systemd':
     manage_resolved  => $rna::manage_resolved,

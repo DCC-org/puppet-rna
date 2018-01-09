@@ -23,11 +23,7 @@ class rna::hypervisor {
   -> file{'/srv/tftp/boot.ipxe.cfg':
     source => "puppet:///modules/${module_name}/configs/boot.ipxe.cfg"
   }
-  file{'/usr/local/bin/syncrepo':
-    source => "puppet:///modules/${module_name}/scripts/syncrepo",
-    owner  => 'root',
-    group  => 'root',
-  }
+
   ['ipxe.efi', 'ipxe.lkrn', 'ipxe.pxe'].each |String $filename| {
     file{"/srv/tftp/${filename}":
       ensure => 'file',
@@ -68,6 +64,7 @@ class rna::hypervisor {
   class{'tftp':
     manage_root_dir => $rna::manage_root_dir,
   }
+
 
   file{'/srv/tftp/':
     recurse => true,

@@ -1,0 +1,10 @@
+[Unit]
+Description=Hourly Archlinux Mirror Update
+
+[Timer]
+OnCalendar=hourly
+AccuracySec=1m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

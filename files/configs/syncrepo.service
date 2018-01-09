@@ -1,0 +1,6 @@
+[Unit]
+Description=Sync Archlinux Repo
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/syncrepo
