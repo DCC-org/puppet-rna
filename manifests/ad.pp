@@ -3,10 +3,6 @@ class rna::ad {
 
   # update /etc/hosts with an entry
 
-  package{$rna::ad::packages:
-    ensure => 'present'
-  }
-
   class{'samba::dc':
     domain             => 'DC',
     realm              => 'ad.example.org',
