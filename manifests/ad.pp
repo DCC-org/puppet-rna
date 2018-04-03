@@ -2,8 +2,10 @@
 class rna::ad {
 
   # update /etc/hosts with an entry
+  # update /etc/resolv.conf with 127.0.0.1
 
   class{'samba::dc':
+    adminpassword      => '54edfghui85r4efghji8765!',
     domain             => 'ad',
     realm              => 'ad.example.org',
     dnsbackend         => 'internal',
