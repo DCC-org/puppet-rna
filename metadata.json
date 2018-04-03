@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "author": "Tim Meusel",
   "name": "puppet-rna",
-  "source": "blub",
+  "source": "https://github.com/DCC-org/puppet-rna.git",
   "summary": "handle all profiles for our infrastructure",
   "license": "Apache-2.0",
   "dependencies": [
