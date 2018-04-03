@@ -9,9 +9,7 @@ describe 'rna' do
 
       describe 'with defaults' do
         it { is_expected.to compile.with_all_deps }
-        it {is_expected.to contain_class('rna::hypervisor')}
         it {is_expected.to contain_class('rna::network')}
-        it {is_expected.to contain_class('rna::mirror')}
         it { is_expected.to contain_package('bash-completion')}
         it { is_expected.to contain_package('lsof')}
         it { is_expected.to contain_package('bash')}
@@ -65,8 +63,32 @@ describe 'rna' do
         it { is_expected.to contain_package('screen')}
         it { is_expected.to contain_package('sudo')}
         it { is_expected.to contain_package('tmux')}
-
-      end
+        it { is_expected.to contain_package('gtop')}
+        it { is_expected.to contain_package('jnettop')}
+        it { is_expected.to contain_package('powertop')}
+        it { is_expected.to contain_package('ntop')}
+        it { is_expected.to contain_exec('rebuild-locales')}
+        it { is_expected.to contain_exec('update-pkgfile-db')}
+        it { is_expected.to contain_vcsrepo('/root/.vim/bundle/Vundle.vim')}
+        it { is_expected.to contain_vcsrepo('/root/scripts')}
+        it { is_expected.to contain_service('getallaurpackages.timer')}
+        it { is_expected.to contain_service('haveged')}
+        it { is_expected.to contain_service('vnstat')}
+        it { is_expected.to contain_file('/etc/profile.d/colorsysstat.sh')}
+        it { is_expected.to contain_file('/root/.bash_profile')}
+        it { is_expected.to contain_file('/root/.bashrc')}
+        it { is_expected.to contain_file('/root/.vim/backupdir')}
+        it { is_expected.to contain_file('/root/.vim')}
+        it { is_expected.to contain_file('/root/.vimrc')}
+        it { is_expected.to contain_file('/usr/local/bin/getallaurpackages')}
+        it { is_expected.to contain_file('/etc/pacman.d/mirrorlist')}
+        it { is_expected.to contain_file('/etc/vconsole.conf')}
+        it { is_expected.to contain_file_line('set-locale')}
+        it { is_expected.to contain_ini_setting('SigLevel') }
+        it { is_expected.to contain_ini_setting('mirrorurl') }
+        it { is_expected.to contain_systemd__unit_file('getallaurpackages.timer') }
+        it { is_expected.to contain_systemd__unit_file('getallaurpackages.service') }
+     end
     end
   end
 end
