@@ -68,7 +68,7 @@ end
 if facterversion = ENV['FACTER_GEM_VERSION']
   gem 'facter', facterversion.to_s, :require => false, :groups => [:test]
 else
-  gem 'facter', '2.4.6', :require => false, :groups => [:test]
+  gem 'facter', '2.5.0', :require => false, :groups => [:test]
 end
 
 ENV['PUPPET_VERSION'].nil? ? puppetversion = '~> 5.0' : puppetversion = ENV['PUPPET_VERSION'].to_s
