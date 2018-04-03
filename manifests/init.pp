@@ -14,6 +14,9 @@ class rna (
       include rna::hypervisor
       include rna::mirror
     }
+    /samba/: {
+      include rna::ad
+    }
     default: {}
   }
   include rna::network

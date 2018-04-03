@@ -62,3 +62,5 @@ rna::manage_timesyncd: true
 rna::www_root: '/srv/http'
 rna::manage_service: true
 rna::manage_configfile: true
+rna::ad::packages:
+  - samba
