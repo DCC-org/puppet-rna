@@ -55,5 +55,11 @@
     {
       "operatingsystem": "Archlinux"
     }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 6.0.0"
+    }
   ]
 }
