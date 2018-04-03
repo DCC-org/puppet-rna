@@ -152,4 +152,11 @@ class rna (
     ensure => 'file',
     source => "puppet:///modules/${module_name}/configs/bash_profile",
   }
+
+  # overwrite inputrc
+  # this provides us proper history searching
+  file{'/etc/inputrc':
+    ensure => 'file',
+    source => "puppet:///modules/${module_name}/configs/inputrc",
+  }
 }

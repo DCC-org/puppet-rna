@@ -83,6 +83,7 @@ describe 'rna' do
         it { is_expected.to contain_file('/usr/local/bin/getallaurpackages')}
         it { is_expected.to contain_file('/etc/pacman.d/mirrorlist')}
         it { is_expected.to contain_file('/etc/vconsole.conf')}
+        it { is_expected.to contain_file('/etc/inputrc') }
         it { is_expected.to contain_file_line('set-locale')}
         it { is_expected.to contain_ini_setting('SigLevel') }
         it { is_expected.to contain_ini_setting('mirrorurl') }
