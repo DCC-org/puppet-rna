@@ -7,6 +7,7 @@ class rna (
   Stdlib::Absolutepath $www_root,
   Boolean $manage_configfile,
   Boolean $manage_service,
+  Stdlib::Ip_address $dnsresolver,
 ){
 
   case $facts['fqdn'] {
