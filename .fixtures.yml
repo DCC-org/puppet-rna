@@ -11,3 +11,4 @@ fixtures:
     'megaraid': 'https://github.com/m4ce/puppet-megaraid.git'
     'disk_facter': 'https://github.com/CygnusNetworks/cygnus-puppet-disk-facter.git'
     'concat': 'https://github.com/puppetlabs/puppetlabs-concat.git'
+    'ferm': 'https://github.com/voxpupuli/puppet-ferm.git'
