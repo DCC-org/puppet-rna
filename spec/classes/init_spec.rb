@@ -10,6 +10,7 @@ describe 'rna' do
       describe 'with defaults' do
         it { is_expected.to compile.with_all_deps }
         it {is_expected.to contain_class('rna::network')}
+        it {is_expected.to contain_class('ferm')}
         it { is_expected.to contain_package('bash-completion')}
         it { is_expected.to contain_package('lsof')}
         it { is_expected.to contain_package('bash')}
@@ -17,7 +18,6 @@ describe 'rna' do
         it { is_expected.to contain_package('gptfdisk')}
         it { is_expected.to contain_package('net-tools')}
         it { is_expected.to contain_package('bind-tools')}
-        it { is_expected.to contain_package('ferm')}
         it { is_expected.to contain_package('whois')}
         it { is_expected.to contain_package('mtr')}
         it { is_expected.to contain_package('dfc')}
@@ -89,6 +89,7 @@ describe 'rna' do
         it { is_expected.to contain_ini_setting('mirrorurl') }
         it { is_expected.to contain_systemd__unit_file('getallaurpackages.timer') }
         it { is_expected.to contain_systemd__unit_file('getallaurpackages.service') }
+        it { is_expected.to contain_ferm__rule('allow_ssh')}
      end
     end
   end
