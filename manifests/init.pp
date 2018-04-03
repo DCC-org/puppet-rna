@@ -5,6 +5,8 @@ class rna (
   Boolean $manage_networkd,
   Boolean $manage_timesyncd,
   Stdlib::Absolutepath $www_root,
+  Boolean $manage_configfile,
+  Boolean $manage_service,
 ){
 
   case $facts['fqdn'] {
@@ -106,6 +108,11 @@ class rna (
   include lldpd
   include megaraid
 
+  class{'ferm':
+    manage_configfile => $rna::manage_configfile,
+    manage_service    => $rna::manage_service,
+  }
+
   # do a pluginsync in agentless setup
   # lint:ignore:puppet_url_without_modules
   file { $::settings::libdir:
@@ -159,4 +166,6 @@ class rna (
     ensure => 'file',
     source => "puppet:///modules/${module_name}/configs/inputrc",
   }
+
+
 }
