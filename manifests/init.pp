@@ -7,9 +7,14 @@ class rna (
   Stdlib::Absolutepath $www_root,
 ){
 
+  case $facts['fqdn'] {
+    /hypervisor/: {
+      include rna::hypervisor
+      include rna::mirror
+    }
+    default: {}
+  }
   include rna::network
-  include rna::hypervisor
-  include rna::mirror
 
   class{'systemd':
     manage_resolved  => $rna::manage_resolved,
