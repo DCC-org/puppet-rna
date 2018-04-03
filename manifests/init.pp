@@ -117,6 +117,8 @@ class rna (
     noop    => false,
   }
   # lint:endignore
+
+  # configure bash/vim
   vcsrepo{'/root/.vim/bundle/Vundle.vim':
     ensure   => 'present',
     source   => 'https://github.com/gmarik/Vundle.vim.git',
@@ -130,5 +132,24 @@ class rna (
     provider => 'git',
     owner    => 'root',
     user     => 'root',
+  }
+
+  file{'/root/.vim':
+    ensure => 'directory',
+  }
+  -> file{'/root/.vim/backupdir':
+    ensure => 'directory',
+  }
+  file{'/root/.vimrc':
+    ensure => 'file',
+    source => "puppet:///modules/${module_name}/configs/vimrc",
+  }
+  file{'/root/.bashrc':
+    ensure => 'file',
+    source => "puppet:///modules/${module_name}/configs/bashrc",
+  }
+  file{'/root/.bash_profile':
+    ensure => 'file',
+    source => "puppet:///modules/${module_name}/configs/bash_profile",
   }
 }
