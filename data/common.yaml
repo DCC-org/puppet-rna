@@ -17,7 +17,6 @@ rna::packages:
   - efibootmgr
   - efivar
   - ethtool
-  - ferm
   - gptfdisk
   - haveged
   - htop
