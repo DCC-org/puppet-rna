@@ -18,5 +18,11 @@ class rna::ad {
       'idmap' => 2,
     },
     dnsforwarder       => $rna::dnsresolver,
+    globaloptions      => {
+      'load printers'   => 'no',
+      'printing'        => 'bsd',
+      'printcap name'   => '/dev/null',
+      'disable spoolss' => 'yes'
+    }
   }
 }
