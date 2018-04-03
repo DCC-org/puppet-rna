@@ -7,7 +7,7 @@ class rna::ad {
     domain             => 'ad',
     realm              => 'ad.example.org',
     dnsbackend         => 'internal',
-    domainlevel        => '2012_R2',
+    domainlevel        => '2008 R2',
     sambaloglevel      => 1,
     logtosyslog        => true,
     ip                 => $facts['networking']['ip'],
