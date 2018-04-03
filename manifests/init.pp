@@ -51,11 +51,11 @@ class rna (
   }
 
   #keyboard layout
-  file{'set-keyboardlayout':
+  file{'/etc/vconsole.conf':
     path    => '/etc/vconsole.conf',
     content => "KEYMAP=de-latin1-nodeadkeys\n",
   }
-  file{'archlinux-mirror':
+  file{'/etc/pacman.d/mirrorlist':
     path    => '/etc/pacman.d/mirrorlist',
     content => "Server = http://mirror.virtapi.org/archlinux/\$repo/os/\$arch/\n",
   }
@@ -72,7 +72,7 @@ class rna (
   -> ini_setting{'mirrorurl':
     setting => 'Include',
     value   => '/etc/pacman.d/mirrorlist',
-    require => File['archlinux-mirror'],
+    require => File['/etc/pacman.d/mirrorlist'],
   }
   service{'vnstat':
     ensure  => running,
