@@ -55,6 +55,7 @@ rna::packages:
   - jnettop
   - ntop
   - powertop
+  - tig
 rna::manage_resolved: true
 rna::manage_networkd: true
 rna::manage_timesyncd: true
