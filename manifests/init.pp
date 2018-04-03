@@ -108,9 +108,18 @@ class rna (
   include lldpd
   include megaraid
 
+  # basic firewalling
+  # drop everything except for ssh
   class{'ferm':
     manage_configfile => $rna::manage_configfile,
     manage_service    => $rna::manage_service,
+  }
+
+  ferm::rule{'allow_ssh':
+    chain  => 'INPUT',
+    policy => 'ACCEPT',
+    proto  => 'tcp',
+    dport  => '22',
   }
 
   # do a pluginsync in agentless setup
