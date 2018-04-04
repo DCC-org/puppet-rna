@@ -7,7 +7,7 @@ class rna::ad {
   class{'samba::dc':
     adminpassword      => '54edfghui85r4efghji8765!',
     domain             => 'ad',
-    realm              => 'ad.example.org',
+    realm              => "ad.${rna::domain}",
     dnsbackend         => 'internal',
     domainlevel        => '2008 R2',
     sambaloglevel      => 1,
