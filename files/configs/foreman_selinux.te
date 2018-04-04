@@ -1,0 +1,12 @@
+module foreman_tmu 1.0;
+
+require {
+        type httpd_t;
+        type puppet_etc_t;
+        class file { getattr open read };
+}
+
+#============= httpd_t ==============
+
+#!!!! This avc is allowed in the current policy
+allow httpd_t puppet_etc_t:file { getattr open read };

@@ -78,3 +78,9 @@ Valid starting       Expires              Service principal
   renew until 04/04/2018 17:54:21
 ```
 
+## Naming convention
+
+This module assumes a few things:
+
+* Samba Active Director servers need to contain `samba` in their FQDN. Tested Operating System is Archlinux
+* The Puppetserver needs to contain `puppet` in his FQDN. Tested Operating System is CentOS 7

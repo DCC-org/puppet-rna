@@ -19,6 +19,9 @@ class rna (
     /samba/: {
       include rna::ad
     }
+    /puppet/: {
+      include rna::puppetaio
+    }
     default: {}
   }
   include rna::network
