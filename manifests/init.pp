@@ -8,6 +8,7 @@ class rna (
   Boolean $manage_configfile,
   Boolean $manage_service,
   Stdlib::Ip_address $dnsresolver,
+  String $domain,
 ){
 
   case $facts['fqdn'] {
@@ -21,6 +22,16 @@ class rna (
     default: {}
   }
   include rna::network
+
+  # setup kerberos
+  class{'kerberos':
+    default_realm    => "AD.${upcase($domain)}",
+    dns_lookup_kdc   => true,
+    dns_lookup_realm => true,
+  }
+  kerberos::realm{$domain:
+    kdc => "ad.${domain}",
+  }
 
   class{'systemd':
     manage_resolved  => $rna::manage_resolved,

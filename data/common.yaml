@@ -63,3 +63,4 @@ rna::www_root: '/srv/http'
 rna::manage_service: true
 rna::manage_configfile: true
 rna::dnsresolver: '80.237.128.144'
+rna::domain: 'example.org'
