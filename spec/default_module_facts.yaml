@@ -8,3 +8,4 @@ systemd-networkd.service: enabled
 systemd-nspawn@.service: disabled
 systemd-resolved.service: enabled
 systemd-timesyncd.service: disabled
+samba_version: 4.7.6
