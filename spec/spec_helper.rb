@@ -25,7 +25,7 @@ RSpec.configure do |c|
     puppetversion: Puppet.version,
     facterversion: '2.4'
   }
-  default_facts.merge!(YAML.load(File.read(File.expand_path('../default_facts.yml', __FILE__)))) if File.exist?(File.expand_path('../default_facts.yml', __FILE__))
+  default_facts.merge!(YAML.load(File.read(File.expand_path('../default_module_facts.yaml', __FILE__)))) if File.exist?(File.expand_path('../default_module_facts.yaml', __FILE__))
   c.default_facts = default_facts
   c.mock_with :rspec
 end
