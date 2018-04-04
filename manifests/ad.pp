@@ -22,7 +22,7 @@ class rna::ad {
       'load printers'   => 'no',
       'printing'        => 'bsd',
       'printcap name'   => '/dev/null',
-      'disable spoolss' => 'yes'
-    }
+      'disable spoolss' => 'yes',
+    },
   }
 }
