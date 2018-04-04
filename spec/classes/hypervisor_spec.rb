@@ -31,7 +31,11 @@ describe 'rna::hypervisor' do
         it { is_expected.to contain_file('/srv/http/pxe') }
         it { is_expected.to contain_file('/srv/http') }
         it { is_expected.to contain_file('/srv/tftp/') }
-
+        it { is_expected.to contain_package('qemu-headless') }
+        it { is_expected.to contain_package('libvirt') }
+        it { is_expected.to contain_package('bridge-utils') }
+        it { is_expected.to contain_package('ovmf') }
+        it { is_expected.to contain_package('ebtables') }
      end
     end
   end

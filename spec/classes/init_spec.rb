@@ -33,24 +33,15 @@ describe 'rna' do
         it { is_expected.to contain_package('parted')}
         it { is_expected.to contain_package('atop')}
         it { is_expected.to contain_package('unzip')}
-        it { is_expected.to contain_package('libvirt')}
-        it { is_expected.to contain_package('qemu-headless')}
-        it { is_expected.to contain_package('ebtables')}
         it { is_expected.to contain_package('vnstat')}
-        it { is_expected.to contain_package('linux-hardened')}
-        it { is_expected.to contain_package('linux-hardened-docs')}
-        it { is_expected.to contain_package('linux-hardened-headers')}
         it { is_expected.to contain_package('bash-completion')}
-        it { is_expected.to contain_package('bridge-utils')}
         it { is_expected.to contain_package('p7zip')}
         it { is_expected.to contain_package('ccze')}
         it { is_expected.to contain_package('python')}
         it { is_expected.to contain_package('tcpdump')}
         it { is_expected.to contain_package('efibootmgr')}
         it { is_expected.to contain_package('efivar')}
-        it { is_expected.to contain_package('ovmf')}
         it { is_expected.to contain_package('smartmontools')}
-        it { is_expected.to contain_package('arch-audit')}
         it { is_expected.to contain_package('di')}
         it { is_expected.to contain_package('dmidecode')}
         it { is_expected.to contain_package('htop')}
@@ -90,6 +81,22 @@ describe 'rna' do
         it { is_expected.to contain_systemd__unit_file('getallaurpackages.timer') }
         it { is_expected.to contain_systemd__unit_file('getallaurpackages.service') }
         it { is_expected.to contain_ferm__rule('allow_ssh')}
+        it { is_expected.to contain_ferm__rule('allow_icmp')}
+        it { is_expected.to contain_kerberos__realm('example.org')}
+
+        case facts[:os]['family']
+        when 'Archlinux'
+          describe 'manages Archlinux specific settings' do
+            it { is_expected.to contain_package('linux-hardened')}
+            it { is_expected.to contain_package('linux-hardened-docs')}
+            it { is_expected.to contain_package('linux-hardened-headers')}
+            it { is_expected.to contain_package('arch-audit')}
+          end
+        when 'RedHat'
+          describe 'manages CentOS specific settings' do
+
+          end
+        end
      end
     end
   end

@@ -28,3 +28,4 @@ fixtures:
     'xinetd': 'https://github.com/puppetlabs/puppetlabs-xinetd.git'
     'selinux': 'https://github.com/voxpupuli/puppet-selinux.git'
     'datacat': 'https://github.com/richardc/puppet-datacat.git'
+    'xinetd': 'https://github.com/puppetlabs/puppetlabs-xinetd.git'

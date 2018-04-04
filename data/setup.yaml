@@ -1,0 +1,5 @@
+---
+lookup_options:
+  rna::packages:
+    merge:
+      strategy: deep

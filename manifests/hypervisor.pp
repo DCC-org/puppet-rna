@@ -1,4 +1,12 @@
-class rna::hypervisor {
+class rna::hypervisor (
+  Array $packages,
+){
+
+  # install hypervisor specific packages
+  package{$rna::hypervisor::packages:
+    ensure => 'present',
+  }
+
   # get windows driver
   archive{'/var/lib/libvirt/images/virtio-win.iso':
     ensure => 'present',
