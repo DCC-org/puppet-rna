@@ -25,4 +25,20 @@ class rna::ad {
       'disable spoolss' => 'yes',
     },
   }
+
+  # add a test user to verify connections
+  smb_user { 'testuser01':                          # * user name
+    ensure             => present,                  # * absent | present
+    password           => '23456jyuherteT!',        # * user password (default: random)
+    force_password     => true,                     # * force password value, if false only set at creation (default: true)
+    groups             => ['domain users'],         # * list of groups (default: [])
+    given_name         => 'test user gn',           # * user given name (default: '')
+    use_username_as_cn => true,                     # * use username as cn (default: false)
+    attributes         => {                         # * hash of attributes
+      uidNumber        => '15222',                  #   use list for multivalued attributes
+      gidNumber        => '10003',                  #   (default: {} (no attributes))
+      msSFU30NisDomain => 'dc',
+      mail             => ['test@bastelfreak.de'],
+    },
+  }
 }

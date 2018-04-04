@@ -14,6 +14,7 @@ describe 'rna::ad' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('rna::ad') }
         it { is_expected.to contain_class('samba::dc') }
+        it { is_expected.to contain_smb_user('testuser01') }
      end
     end
   end
