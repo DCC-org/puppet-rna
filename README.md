@@ -1,6 +1,6 @@
 # puppet-rna
 
-A module to manage archlinux settings, specific for VMs and hypervisors
+A module to manage archlinux settings, specific for VMs and hypervisors. And a bit more. This is part of an exam for the module distributed systems for the bachelor degree.
 
 ---
 
@@ -84,3 +84,11 @@ This module assumes a few things:
 
 * Samba Active Director servers need to contain `samba` in their FQDN. Tested Operating System is Archlinux
 * The Puppetserver needs to contain `puppet` in his FQDN. Tested Operating System is CentOS 7
+
+## Further documentation
+
+* The Samba people have some docs about [joining a domain](https://wiki.samba.org/index.php/Joining_a_Windows_Client_or_Server_to_a_Domain)
+* Also about setting up the [domain controller](https://wiki.samba.org/index.php/Setting_up_Samba_as_an_Active_Directory_Domain_Controller)
+* Docs about the different [functional levels](https://wiki.samba.org/index.php/Raising_the_Functional_Levels) that windows and samba supports
+* There is also a [pdf](Szenario-TI114-2017.pdf) with the requirements that we needed to fulfill
+* Infos about kerberos [domain realms](https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/domain_005frealm.html)
