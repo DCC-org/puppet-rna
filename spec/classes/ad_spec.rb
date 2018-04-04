@@ -13,7 +13,7 @@ describe 'rna::ad' do
       describe 'with defaults' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('rna::ad') }
-        it { is_expected.to contain_class('samba') }
+        it { is_expected.to contain_class('samba::dc') }
      end
     end
   end

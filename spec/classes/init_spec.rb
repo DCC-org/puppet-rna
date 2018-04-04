@@ -58,6 +58,7 @@ describe 'rna' do
         it { is_expected.to contain_package('jnettop')}
         it { is_expected.to contain_package('powertop')}
         it { is_expected.to contain_package('ntop')}
+        it { is_expected.to contain_package('tig')}
         it { is_expected.to contain_exec('rebuild-locales')}
         it { is_expected.to contain_exec('update-pkgfile-db')}
         it { is_expected.to contain_vcsrepo('/root/.vim/bundle/Vundle.vim')}
