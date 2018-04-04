@@ -70,7 +70,11 @@ class rna (
   }
 
   include lldpd
-  include megaraid
+
+  # only install megacli/storcli on physical machines
+  if $facts['is_virtual'] == false {
+    include megaraid
+  }
 
   # basic firewalling
   # drop everything except for ssh and ICMP
