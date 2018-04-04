@@ -2,7 +2,7 @@ class rna::hypervisor {
   # get windows driver
   archive{'/var/lib/libvirt/images/virtio-win.iso':
     ensure => 'present',
-    etraxt => false,
+    extract => false,
     source => 'https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso',
   }
   systemd::network{'virbr1.netdev':
