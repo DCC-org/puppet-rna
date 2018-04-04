@@ -12,7 +12,9 @@ fixtures:
     'disk_facter': 'https://github.com/CygnusNetworks/cygnus-puppet-disk-facter.git'
     'concat': 'https://github.com/puppetlabs/puppetlabs-concat.git'
     'ferm': 'https://github.com/voxpupuli/puppet-ferm.git'
-    'samba': 'https://github.com/kakwa/puppet-samba.git'
+    'samba':
+      'repo': 'https://github.com/bastelfreak/puppet-samba.git'
+      'branch': 'fixes'
     'augeasproviders_pam': 'https://github.com/hercules-team/augeasproviders_pam.git'
     'kerberos':
       'repo': 'https://github.com/bastelfreak/puppet-kerberos.git'
