@@ -109,7 +109,7 @@ class rna (
   include megaraid
 
   # basic firewalling
-  # drop everything except for ssh
+  # drop everything except for ssh and ICMP
   class{'ferm':
     manage_configfile => $rna::manage_configfile,
     manage_service    => $rna::manage_service,
@@ -120,6 +120,12 @@ class rna (
     policy => 'ACCEPT',
     proto  => 'tcp',
     dport  => '22',
+  }
+
+  ferm::rule{'allow_icmp':
+    chain  => 'INPUT',
+    policy => 'ACCEPT',
+    proto  => 'icmp',
   }
 
   # do a pluginsync in agentless setup
