@@ -92,3 +92,5 @@ This module assumes a few things:
 * Docs about the different [functional levels](https://wiki.samba.org/index.php/Raising_the_Functional_Levels) that windows and samba supports
 * There is also a [pdf](Szenario-TI114-2017.pdf) with the requirements that we needed to fulfill
 * Infos about kerberos [domain realms](https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/domain_005frealm.html)
+* Infos about firewalling for Samba [1](https://www.samba.org/~tpot/articles/firewall.html), [2](https://wiki.samba.org/index.php/Samba_AD_DC_Port_Usage)
+* Check if a windows system is a domain member / if the user is local or not [1](https://answers.uillinois.edu/illinois/page.php?id=47575)
