@@ -41,4 +41,33 @@ class rna::ad {
       mail             => ['test@bastelfreak.de'],
     },
   }
+
+  ferm::rule{'allow_dns_udp':
+    chain  => 'INPUT',
+    proto  => 'udp',
+    saddr  => '62.138.188.0/24',
+    dport  => '53',
+    policy => 'ACCEPT',
+  }
+  ferm::rule{'allow_dns_tcp':
+    chain  => 'INPUT',
+    proto  => 'tcp',
+    saddr  => '62.138.188.0/24',
+    dport  => '53',
+    policy => 'ACCEPT',
+  }
+  ferm::rule{'allow_samba_tcp':
+    chain  => 'INPUT',
+    proto  => 'tcp',
+    saddr  => '62.138.188.0/24',
+    dport  => '(88 135 139 389 445 464 636 3268 3269 49152:65535)',
+    policy => 'ACCEPT',
+  }
+  ferm::rule{'allow_samba_udp':
+    chain  => 'INPUT',
+    proto  => 'udp',
+    saddr  => '62.138.188.0/24',
+    dport  => '(88 137 138 389 464)',
+    policy => 'ACCEPT',
+  }
 }
