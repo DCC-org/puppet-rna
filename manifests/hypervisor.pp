@@ -1,9 +1,17 @@
-class rna::hypervisor {
+class rna::hypervisor (
+  Array $packages,
+){
+
+  # install hypervisor specific packages
+  package{$rna::hypervisor::packages:
+    ensure => 'present',
+  }
+
   # get windows driver
   archive{'/var/lib/libvirt/images/virtio-win.iso':
-    ensure => 'present',
-    etraxt => false,
-    source => 'https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso',
+    ensure  => 'present',
+    extract => false,
+    source  => 'https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso',
   }
   systemd::network{'virbr1.netdev':
     source          => "puppet:///modules/${module_name}/configs/virbr1.netdev",

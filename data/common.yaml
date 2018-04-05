@@ -1,44 +1,29 @@
 ---
 rna::manage_root_dir: false
 rna::packages:
-  - arch-audit
   - atop
   - bash
   - bash-completion
-  - bind-tools
-  - bridge-utils
   - ccze
   - cpio
-  - cpupower
-  - dfc
-  - di
   - dmidecode
-  - ebtables
   - efibootmgr
   - efivar
   - ethtool
-  - gptfdisk
   - haveged
   - htop
   - iftop
-  - intel-ucode
   - iperf3
   - ipmitool
-  - libvirt
-  - linux-hardened
-  - linux-hardened-docs
-  - linux-hardened-headers
   - lsof
   - mtr
   - net-tools
   - nload
-  - ovmf
   - p7zip
   - parted
   - pigz
   - psmisc
   - python
-  - qemu-headless
   - rsync
   - ruby-augeas
   - screen
@@ -51,14 +36,19 @@ rna::packages:
   - vim
   - vnstat
   - whois
-  - gtop
   - jnettop
-  - ntop
   - powertop
   - tig
+rna::hypervisor::packages:
+  - qemu-headless
+  - libvirt
+  - bridge-utils
+  - ovmf
+  - ebtables
 rna::manage_resolved: true
-rna::manage_networkd: true
 rna::manage_timesyncd: true
 rna::www_root: '/srv/http'
 rna::manage_service: true
 rna::manage_configfile: true
+rna::dnsresolver: '80.237.128.144'
+rna::domain: 'example.org'

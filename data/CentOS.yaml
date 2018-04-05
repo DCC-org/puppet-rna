@@ -1,0 +1,13 @@
+---
+rna::packages:
+  - bind-utils
+  - yum-plugin-priorities
+  - yum-plugin-downloadonly
+  - nfs-utils
+  - yum-utils
+  - mtr
+  - mailx
+  - augeas
+  - telnet
+  - gcc-c++
+rna::manage_networkd: false

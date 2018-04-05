@@ -21,6 +21,7 @@ describe 'rna::hypervisor' do
         it { is_expected.to contain_file('/srv/tftp/ipxe.lkrn') }
         it { is_expected.to contain_file('/srv/tftp/ipxe.pxe') }
         it { is_expected.to contain_archive('/srv/archlinux-2017.12.01-x86_64.iso')}
+        it { is_expected.to contain_archive('/var/lib/libvirt/images/virtio-win.iso')}
         it { is_expected.to contain_file('/srv/archiso/EFI') }
         it { is_expected.to contain_file('/srv/archiso/[BOOT]') }
         it { is_expected.to contain_file('/srv/archiso/arch') }
@@ -31,7 +32,11 @@ describe 'rna::hypervisor' do
         it { is_expected.to contain_file('/srv/http/pxe') }
         it { is_expected.to contain_file('/srv/http') }
         it { is_expected.to contain_file('/srv/tftp/') }
-
+        it { is_expected.to contain_package('qemu-headless') }
+        it { is_expected.to contain_package('libvirt') }
+        it { is_expected.to contain_package('bridge-utils') }
+        it { is_expected.to contain_package('ovmf') }
+        it { is_expected.to contain_package('ebtables') }
      end
     end
   end

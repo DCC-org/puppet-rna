@@ -20,3 +20,6 @@ hierarchy:
 
   - name: 'common'
     path: 'common.yaml'
+
+  - name: 'merge setup'
+    path: 'setup.yaml'

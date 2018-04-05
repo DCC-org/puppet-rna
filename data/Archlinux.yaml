@@ -1,0 +1,15 @@
+---
+rna::manage_networkd: true
+rna::packages:
+  - linux-hardened
+  - linux-hardened-docs
+  - linux-hardened-headers
+  - arch-audit
+  - gtop
+  - ntop
+  - intel-ucode
+  - gptfdisk
+  - di
+  - dfc
+  - cpupower
+  - bind-tools
