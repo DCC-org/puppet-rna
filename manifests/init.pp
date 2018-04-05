@@ -25,14 +25,19 @@ class rna (
     /hypervisor/: {
       include rna::hypervisor
       include rna::mirror
+      $dns = '62.138.188.16'
     }
     /samba/: {
       include rna::ad
+      $dns = '127.0.0.1'
     }
     /puppet/: {
       include rna::puppetaio
+      $dns = '62.138.188.16'
     }
-    default: {}
+    default: {
+      $dns = '62.138.188.16'
+    }
   }
 
   if $rna::manage_networkd {
@@ -53,6 +58,7 @@ class rna (
     manage_resolved  => $rna::manage_resolved,
     manage_networkd  => $rna::manage_networkd,
     manage_timesyncd => $rna::manage_timesyncd,
+    dns              => $dns,
   }
   package{$packages:
     ensure => 'present',
