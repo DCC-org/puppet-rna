@@ -10,7 +10,10 @@ class rna::redhat {
             'NetworkManager-tui',
             'NetworkManager-wifi',
             'NetworkManager-wwan',
-            'NetworkManager',]:
+            'NetworkManager',
+            'firewalld',
+            'firewalld-filesystem',
+            'python-firewall',]:
     ensure  => absent,
   }
 }
